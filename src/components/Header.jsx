@@ -7,22 +7,20 @@ function Header() {
   const [toggleCurrency, setToggleCurrency] = useState(false)
 
   const toggleDarkModeIcon = toggleDarkMode ? <MdDarkMode/> : <MdLightMode/>
-  const toggleCurrencyIcon = toggleCurrency ? <IoMdArrowDropdown/> : <IoMdArrowDropup/>
-
-  const btnStyle = 'flex items-center place-content-center h-7 w-12 bg-[#4BCC00] rounded-lg text-white'
+  const toggleCurrencyIcon = toggleCurrency ? <IoMdArrowDropdown/> : <IoMdArrowDropup/> 
 
   return (
-    <header className='flex justify-between px-4 py-2'>
+    <header className='flex justify-between px-4 my-2'>
       <h1 className='font-bold text-xl text-[#656565]'>Coin Insight</h1>
       <div className='flex gap-2'>
         <button 
-          className={btnStyle}
+          className='flex items-center place-content-center h-7 w-10 bg-[#4BCC00] rounded-lg text-white'
           onClick={() => setToggleDarkMode(prev => !prev)}
         >
           {toggleDarkModeIcon}
         </button>
         <button 
-          className={btnStyle}
+          className='flex items-center place-content-center h-7 w-14 bg-[#4BCC00] rounded-lg text-white'
           onClick={() => setToggleCurrency(prev => !prev)}
         >
           <p className='text-xs'>USD</p>
