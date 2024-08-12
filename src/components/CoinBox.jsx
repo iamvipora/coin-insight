@@ -1,9 +1,12 @@
-import React from 'react'
+import { useContext } from "react"
+import { ThemeContext } from "../context/ThemeContext"
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io"
 
 function CoinBox() {
+  const { isDarkMode } = useContext(ThemeContext)
+
   return (
-    <div className='grid grid-cols-10 justify-between py-3 px-4 w-full bg-white rounded-lg items-center text-xs'>
+    <div className={`grid grid-cols-10 justify-between py-3 px-4 w-full rounded-lg items-center text-xs bg-${isDarkMode ? '[#0D1217]' : 'white' }`}>
       <span className='h-6 w-6 rounded-full bg-gray-500'></span>
       <span className='col-span-5'>Neiro on Eth</span>
       <span className='col-span-2'>$0.1842</span>

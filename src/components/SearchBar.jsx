@@ -8,7 +8,7 @@ function SearchBar() {
       <input
         className='w-full bg-inherit outline-none text-xs'
         type='text'
-        placeholder='Search' 
+        placeholder='Search'
       />
     </div>  
   )
