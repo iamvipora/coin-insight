@@ -12,36 +12,38 @@ function Header() {
   const { selectedCurrency, setSelectedCurrency } = useContext(CurrencyContext)
   const { isDarkMode, setIsDarkMode } = useContext(ThemeContext)
 
-  const prioritizedCurrencies = ['usd', 'eur', 'php']
-
   const toggleDarkModeIcon = isDarkMode ? <MdLightMode/> : <MdDarkMode/>
   const toggleCurrencyMenuIcon = toggleCurrencyMenu ? <IoMdArrowDropdown/> : <IoMdArrowDropup/>
 
-  useEffect(() => {
-    const fetchData = () => {
-      const options = {
-        method: 'GET',
-        url: 'https://api.coingecko.com/api/v3/simple/supported_vs_currencies',
-        headers: {accept: 'application/json', 'x-cg-api-key': 'CG-PdnVsh4UqGxGeBstTVvG9RFE'}
-      }
-  
-      axios.request(options)
-        .then(res => {
-          const allCurrencies = res.data
-          const prioritized = prioritizedCurrencies.filter(currency => allCurrencies.includes(currency))
-          const others = allCurrencies.filter(currency => !prioritizedCurrencies.includes(currency))
-          setCurrencies([...prioritized, ...others])
-        })
-        .catch(err => console.error(err))
-    }
+  const textColor = isDarkMode ? 'white' : '[#656565]'
 
-    // fetchData()
+  const prioritizedCurrencies = ['usd', 'eur', 'php']
+
+  const fetchCurrencies = async () => {
+    const options = {
+      method: 'GET',
+      url: 'https://api.coingecko.com/api/v3/simple/supported_vs_currencies',
+      headers: {accept: 'application/json', 'x-cg-api-key': import.meta.env.VITE_API_KEY}
+    }
+    
+    try {
+      const res = await axios.request(options)
+      const allCurrencies = res.data
+      const prioritized = prioritizedCurrencies.filter(currency => allCurrencies.includes(currency))
+      const others = allCurrencies.filter(currency => !prioritizedCurrencies.includes(currency))
+      setCurrencies([...prioritized, ...others])
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  useEffect(() => {
+    // fetchCurrencies()
   }, [])
 
   useEffect(() => {
-    JSON.stringify(localStorage.setItem('theme', isDarkMode))
-    console.log(isDarkMode)
     isDarkMode ?  document.body.style.backgroundColor = '#0D1217' : document.body.style.backgroundColor = 'white'
+    JSON.stringify(localStorage.setItem('theme', isDarkMode))
   }, [isDarkMode])
 
   const handleCurrencySelection = (currency) => {
@@ -51,7 +53,7 @@ function Header() {
 
   return (
     <header className='flex justify-between px-4 my-2'>
-      <h1 className={`font-bold text-xl text-${isDarkMode ? 'white' : '[#656565]'}`}>Coin Insight</h1>
+      <h1 className={`font-bold text-xl text-${textColor}`}>Coin Insight</h1>
       <div className='flex gap-2'>
         <button 
           className='flex items-center place-content-center h-7 w-10 bg-[#4BCC00] rounded-lg text-white'

@@ -5,6 +5,9 @@ import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io"
 function CoinBox() {
   const { isDarkMode } = useContext(ThemeContext)
 
+  const componentBg = isDarkMode ? 'bg-[#0D1217]' : 'bg-white'
+  const componentText = isDarkMode && 'text-white'
+
   return (
     <div className={`grid grid-cols-10 justify-between py-3 px-4 w-full rounded-lg items-center text-xs bg-${isDarkMode ? '[#0D1217]' : 'white' }`}>
       <span className='h-6 w-6 rounded-full bg-gray-500'></span>
