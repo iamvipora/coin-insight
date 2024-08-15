@@ -65,7 +65,7 @@ function Header() {
           className='flex items-center place-content-center h-7 w-14 bg-[#4BCC00] rounded-lg text-white'
           onClick={() => setToggleCurrencyMenu(prev => !prev)}
         >
-          <p className='text-xs'>{selectedCurrency.toUpperCase()}</p>
+          <span className='text-xs'>{selectedCurrency.toUpperCase()}</span>
           {toggleCurrencyMenuIcon}
         </button>
         {toggleCurrencyMenu && (

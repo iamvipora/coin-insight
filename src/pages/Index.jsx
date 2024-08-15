@@ -14,6 +14,7 @@ function Index() {
 
   const [defiMarketCapData, setDefiMarketCapData] = useState()
   const [tradingVolumeData, setTradingVolumeData] = useState()
+  const [allCoins, setAllCoins] = useState()
 
   const [loading, setLoading] = useState(true)
 
@@ -33,6 +34,21 @@ function Index() {
       setTradingVolumeData({statsName: '24h Trading Volume', statsNumber: res.data.data.trading_volume_24h})
     } catch (err) {
       console.error(err)
+    }
+  }
+
+  const fetchCoins = async () => {
+    const options = {
+      method: 'GET',
+      url: 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&',
+      headers: {accept: 'application/json', 'x-cg-api-key': 'CG-gYy2EZbRi34XuJ6VgXAcTcRZ'}
+    }
+
+    try {
+      const res = await axios.request(options)
+      setAllCoins(res.data)
+    } catch (err) {
+      console.err
     } finally {
       setLoading(false)
     }
@@ -40,6 +56,10 @@ function Index() {
 
   useEffect(() => {
     fetchMarketStatistics()
+    //To counter public API call limit
+    setTimeout(() => {
+      fetchCoins()
+    }, 5000)
   }, [])
 
   return (
@@ -58,8 +78,14 @@ function Index() {
             <MarketStatistics
               data={tradingVolumeData}
             />
-            <FeaturedCoins/>
-            <FeaturedCoins/>
+            <FeaturedCoins
+              componentName='Top 3 Coins'
+              data={allCoins}
+            />
+            <FeaturedCoins
+              componentName='Random Coin Generator'
+              data={allCoins}
+            />
             <h2 className={`mt-4 text-lg font-bold text-center ${textStyling}`}>Cryptocurrency Prices by Market Cap</h2>
             <SearchBar/>
             <CoinTable/>
