@@ -9,8 +9,8 @@ function FeaturedCoins({ componentName, data }) {
 
   const [randomCoin, setRandomCoin] = useState()
 
-  const componentBg = isDarkMode ? 'bg-[#212D3B]' : 'bg-[#EFF2F5]'
-  const componentText = isDarkMode && 'text-white'
+  const bgStyling = isDarkMode ? 'bg-[#212D3B]' : 'bg-[#EFF2F5]'
+  const textStyling = isDarkMode && 'text-white'
 
   const isTop3Coins = componentName == 'Top 3 Coins' ? true : false
   const componentIcon = isTop3Coins ? <FaRankingStar className='h-6 w-6 ml-1'/> : <GiPerspectiveDiceSixFacesRandom className='h-6 w-6'/>
@@ -20,7 +20,9 @@ function FeaturedCoins({ componentName, data }) {
     setRandomCoin(data[random])
   }
 
-  const renderTopCoins = data.slice(0, 3).map((item, key) => {
+  const stableCoins = ['Tether', 'USDC', 'Dai']
+
+  const renderTopCoins = data.filter(item => !stableCoins.includes(item.name)).slice(0, 3).map((item, key) => {
     return (
       <CoinBox 
         key={key}
@@ -39,7 +41,7 @@ function FeaturedCoins({ componentName, data }) {
   }, [])
   
   return (
-    <div className={`flex flex-col p-2 w-full rounded-lg ${componentBg} ${componentText}`}>
+    <div className={`flex flex-col p-2 w-full rounded-lg ${bgStyling} ${textStyling}`}>
       <h2 className='flex items-center gap-1 text-lg font-bold pb-2'>{componentIcon}{componentName}</h2>
       {isTop3Coins ?
         <div className='flex flex-col gap-2'>

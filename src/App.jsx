@@ -1,6 +1,4 @@
-import { useEffect, useContext } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { ThemeContext } from './context/ThemeContext'
 import ThemeProvider from './context/ThemeProvider'
 import CurrencyProvider from './context/CurrencyProvider'
 import Index from './pages/Index'

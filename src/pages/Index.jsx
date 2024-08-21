@@ -59,7 +59,7 @@ function Index() {
     //To counter public API call limit
     setTimeout(() => {
       fetchCoins()
-    }, 5000)
+    }, 3000)
   }, [])
 
   return (
@@ -88,7 +88,9 @@ function Index() {
             />
             <h2 className={`mt-4 text-lg font-bold text-center ${textStyling}`}>Cryptocurrency Prices by Market Cap</h2>
             <SearchBar/>
-            <CoinTable/>
+            <CoinTable
+              data={allCoins}
+            />
             <PageNavigator/>
           </div>
         }            
