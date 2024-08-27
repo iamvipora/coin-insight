@@ -25,8 +25,8 @@ function CoinTable({ data }) {
           <tr className='h-6 border-y font-bold text-nowrap text-right'>
             <th className={`sticky left-0 z-10 px-2 text-left ${bgStyling}`}>Ranking</th>
             <th className={`sticky left-16 z-10 px-9 text-left ${bgStyling}`}>Coin</th>
-            <th className=''>Price</th>
-            <th className='px-2 w-6'>24h</th>
+            <th className='px-2'>Price</th>
+            <th className='px-2'>24h</th>
             <th className='px-2'>Market Cap</th>
           </tr>
         </thead>
@@ -46,8 +46,8 @@ function CoinTable({ data }) {
                     <span className='text-[#64748B]'>{item.symbol.toUpperCase()}</span>
                   </div>
                 </td>
-                <td className='pl-[5.5rem]'>${priceFormatter.format(item.current_price)}</td>
-                <td className={`flex px-2 ${priceChangeTextColor}`}>{priceChangeIcon}{'%' + percentageFormatter.format(item.price_change_percentage_24h)}</td>
+                <td className='px-2 pl-[88px]'>${priceFormatter.format(item.current_price)}</td>
+                <td className={`flex items-center ${priceChangeTextColor}`}>{priceChangeIcon}{'%' + Math.abs(percentageFormatter.format(item.price_change_percentage_24h))}</td>
                 <td className='px-2'>${priceFormatter.format(item.market_cap)}</td>
               </tr>
             )

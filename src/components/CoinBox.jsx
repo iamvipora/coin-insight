@@ -25,8 +25,8 @@ function CoinBox({ icon, name, price, dailyPriceChangePercentage }) {
     <div className={`grid grid-cols-11 justify-between py-3 px-4 w-full rounded-lg items-center text-xs ${componentBg} ${componentText}`}>
       <img src={icon} className='h-6 w-6 rounded-full'/>
       <span className='ml-1 col-span-5'>{name}</span>
-      <span className='col-span-3'>${priceFormatter.format(price)}</span>
-      <span className={`col-span-2 flex items-center ${priceChangeTextColor}`}>{priceChangeIcon}{'%' + percentageFormatter.format(dailyPriceChangePercentage)}</span>
+      <span className='col-span-3 text-right'>${priceFormatter.format(price)}</span>
+      <span className={`col-span-2 flex items-center ${priceChangeTextColor}`}>{priceChangeIcon}{'%' + Math.abs(percentageFormatter.format(dailyPriceChangePercentage))}</span>
     </div>
   )
 }

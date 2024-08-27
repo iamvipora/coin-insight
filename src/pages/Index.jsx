@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
+import { useLocation } from 'react-router-dom'
 import axios from 'axios'
 import { ThemeContext } from '../context/ThemeContext'
 import Header from '../components/Header'
@@ -6,17 +7,21 @@ import MarketStatistics from '../components/MarketStatistics'
 import FeaturedCoins from '../components/FeaturedCoins'
 import SearchBar from '../components/SearchBar'
 import CoinTable from '../components/CoinTable'
-import PageNavigator from '../components/PageNavigator'
+import Pagination from '../components/Pagination'
 import { FadeLoader } from 'react-spinners'
 
 function Index() {
+  const location = useLocation()
+
   const { isDarkMode } = useContext(ThemeContext)
 
   const [defiMarketCapData, setDefiMarketCapData] = useState()
   const [tradingVolumeData, setTradingVolumeData] = useState()
   const [allCoins, setAllCoins] = useState()
-
   const [loading, setLoading] = useState(true)
+
+  const query = new URLSearchParams(location.search)
+  const currentPage = parseInt(query.get('page')) || 1
 
   const textStyling = isDarkMode && 'text-white'
   const loaderColor = isDarkMode ? '#FFFFFF' : '#656565'
@@ -40,7 +45,7 @@ function Index() {
   const fetchCoins = async () => {
     const options = {
       method: 'GET',
-      url: 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&',
+      url: `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=${currentPage}`,
       headers: {accept: 'application/json', 'x-cg-api-key': 'CG-gYy2EZbRi34XuJ6VgXAcTcRZ'}
     }
 
@@ -56,11 +61,14 @@ function Index() {
 
   useEffect(() => {
     fetchMarketStatistics()
-    //To counter public API call limit
+  }, [])
+
+  useEffect(() => {
+    //Countering public API call limit
     setTimeout(() => {
       fetchCoins()
     }, 3000)
-  }, [])
+  }, [currentPage])
 
   return (
     <div className='font-outfit tracking-wider'>
@@ -91,7 +99,10 @@ function Index() {
             <CoinTable
               data={allCoins}
             />
-            <PageNavigator/>
+            <Pagination
+              query={query}
+              currentPage={currentPage}
+            />
           </div>
         }            
       </div>

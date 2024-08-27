@@ -49,7 +49,7 @@ function FeaturedCoins({ componentName, data }) {
         </div>
         :
         <div className='flex flex-col gap-2 place-items-end'>
-          <p className='text-xs text-justify'>Generates a random coin from the list of top 50 supported coins on Coin Insight.</p>
+          <p className='text-xs text-justify'>Generates a random coin from the list of top 100 supported coins on Coin Insight.</p>
           {randomCoin && (
             <CoinBox 
               icon={randomCoin.image}
