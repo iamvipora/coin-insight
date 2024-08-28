@@ -1,5 +1,4 @@
 import { useEffect, useState, useContext } from 'react'
-import axios from 'axios'
 import { CurrencyContext } from '../context/CurrencyContext'
 import { ThemeContext } from '../context/ThemeContext'
 import { MdLightMode, MdDarkMode } from "react-icons/md"
@@ -23,7 +22,7 @@ function Header() {
   }, [isDarkMode])
 
   const handleCurrencySelection = (currency) => {
-    localStorage.setItem('selectedCurrency', selectedCurrency)
+    localStorage.setItem('selectedCurrency', currency)
     setSelectedCurrency(currency)
     setToggleCurrencyMenu(false)
   }

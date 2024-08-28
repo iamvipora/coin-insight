@@ -1,13 +1,16 @@
 import { useState, useContext } from "react"
 import { useNavigate } from 'react-router-dom'
 import { ThemeContext } from '../context/ThemeContext'
-import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io"
+import { IoMdArrowDropleft, IoMdArrowDropright, IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io"
 
-function Pagination({ query, currentPage }) {
+function Pagination({ query, currentPage, itemsPerPage, setItemsPerPage }) {
   const navigate = useNavigate()
 
   const { isDarkMode } = useContext(ThemeContext)
 
+  const [toggleItemsPerPageMenu, setToggleItemsPerPageMenu] = useState(false)
+
+  const toggleItemsPerPageMenuIcon = toggleItemsPerPageMenu ? <IoMdArrowDropdown/> : <IoMdArrowDropup/>
   const textStyling = isDarkMode && 'text-white'
 
   const handlePrevPage = () => {
@@ -24,25 +27,56 @@ function Pagination({ query, currentPage }) {
     navigate(`?${query.toString()}`)
   }
 
+  const handleChangeItemsPerPage = (itemsPerPage) => {
+    setItemsPerPage(itemsPerPage)
+    setToggleItemsPerPageMenu(false)
+  }
+
   return (
-    <div className='flex justify-center items-center space-x-2 my-2 text-sm'>
-      <button
-        className={`${textStyling}`}
-        onClick={handlePrevPage}
-      >
-        <IoMdArrowDropleft className='h-5 w-5'/>
-      </button>
-      <button
-        className='px-2 rounded && bg-[#E8FCC9] text-[#35AF00]'
-      > 
-        {currentPage}
-      </button>
-      <button
-        className={`${textStyling}`}
-        onClick={handleNextPage}
-      >
-        <IoMdArrowDropright className='h-5 w-5'/>
-      </button>
+    <div className='flex justify-between'>
+      <div></div>
+      <div className='flex justify-center items-center space-x-2 my-2 text-sm'>
+        <button
+          className={`${textStyling}`}
+          onClick={handlePrevPage}
+        >
+          <IoMdArrowDropleft className='h-5 w-5'/>
+        </button>
+        <button
+          className='px-2 rounded && bg-[#E8FCC9] text-[#35AF00]'
+        > 
+          {currentPage}
+        </button>
+        <button
+          className={`${textStyling}`}
+          onClick={handleNextPage}
+        >
+          <IoMdArrowDropright className='h-5 w-5'/>
+        </button>
+      </div>
+      <div className='flex gap-2 text-xs items-center'>
+        <span>Rows</span>
+        <button
+          className='flex items-center place-content-center h-7 w-10 bg-[#4BCC00] rounded-lg text-white'
+          onClick={() => setToggleItemsPerPageMenu(prev => !prev)}
+        >
+          {itemsPerPage}
+          {toggleItemsPerPageMenuIcon}
+        </button>
+        {toggleItemsPerPageMenu && (
+          <ul className='absolute mt-8 ml-12 w-14 overflow-y-auto bg-[#4BCC00] rounded-lg text-white text-xs '>
+            {[25, 50, 100].map(value => (
+              <li
+                key={value}
+                className='flex px-3 py-2 cursor-pointer text-xs'
+                onClick={() => handleChangeItemsPerPage(value)}
+              >
+                {value}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   )
 }

@@ -1,9 +1,13 @@
 import { useContext } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
+import { CurrencyContext } from '../context/CurrencyContext'
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io"
 
 function CoinTable({ data }) {
   const { isDarkMode } = useContext(ThemeContext)
+  const { selectedCurrency } = useContext(CurrencyContext)
+
+  const currencySymbol = selectedCurrency == 'USD' ? '$' : '₱' 
 
   const bgStyling = isDarkMode ? 'bg-[#0D1217]' : 'bg-white'
   const textStyling = isDarkMode && 'text-white'
@@ -46,9 +50,9 @@ function CoinTable({ data }) {
                     <span className='text-[#64748B]'>{item.symbol.toUpperCase()}</span>
                   </div>
                 </td>
-                <td className='px-2 pl-[88px]'>${priceFormatter.format(item.current_price)}</td>
+                <td className='px-2 pl-[88px]'>{currencySymbol + priceFormatter.format(item.current_price)}</td>
                 <td className={`flex items-center ${priceChangeTextColor}`}>{priceChangeIcon}{'%' + Math.abs(percentageFormatter.format(item.price_change_percentage_24h))}</td>
-                <td className='px-2'>${priceFormatter.format(item.market_cap)}</td>
+                <td className='px-2'>{currencySymbol + priceFormatter.format(item.market_cap)}</td>
               </tr>
             )
           })}
