@@ -15,7 +15,7 @@ function Header() {
   const toggleDarkModeIcon = isDarkMode ? <MdLightMode/> : <MdDarkMode/>
   const toggleCurrencyMenuIcon = toggleCurrencyMenu ? <IoMdArrowDropdown/> : <IoMdArrowDropup/>
 
-  const textColor = isDarkMode ? 'white' : '[#656565]'
+  const textColor = isDarkMode ? 'text-white' : 'text-[#656565]'
 
   useEffect(() => {
     isDarkMode ?  document.body.style.backgroundColor = '#0D1217' : document.body.style.backgroundColor = 'white'
@@ -31,7 +31,7 @@ function Header() {
   return (
     <header className='flex justify-between px-4 my-2'>
       <Link to='/'>
-        <h1 className={`font-bold text-xl text-${textColor}`}>Coin Insight</h1>
+        <h1 className={`font-bold text-xl ${textColor}`}>Coin Insight</h1>
       </Link>
       <div className='flex gap-2'>
         <button 
