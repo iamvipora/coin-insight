@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from 'react'
+import { Link } from 'react-router-dom'
 import { CurrencyContext } from '../context/CurrencyContext'
 import { ThemeContext } from '../context/ThemeContext'
 import { MdLightMode, MdDarkMode } from "react-icons/md"
@@ -29,7 +30,9 @@ function Header() {
 
   return (
     <header className='flex justify-between px-4 my-2'>
-      <h1 className={`font-bold text-xl text-${textColor}`}>Coin Insight</h1>
+      <Link to='/'>
+        <h1 className={`font-bold text-xl text-${textColor}`}>Coin Insight</h1>
+      </Link>
       <div className='flex gap-2'>
         <button 
           className='flex items-center place-content-center h-7 w-10 bg-[#4BCC00] rounded-lg text-white'

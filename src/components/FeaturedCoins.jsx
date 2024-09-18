@@ -4,7 +4,7 @@ import CoinBox from './CoinBox'
 import { FaRankingStar } from "react-icons/fa6"
 import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi"
 
-function FeaturedCoins({ componentName, data }) {
+function FeaturedCoins({ componentName, data, currentPage, itemsPerPage }) {
   const { isDarkMode } = useContext(ThemeContext)
 
   const [randomCoin, setRandomCoin] = useState()
@@ -49,7 +49,7 @@ function FeaturedCoins({ componentName, data }) {
         </div>
         :
         <div className='flex flex-col gap-2 place-items-end'>
-          <p className='text-xs text-justify'>Generates a random coin from the list of top 100 supported coins on Coin Insight.</p>
+          <p className='text-xs text-justify'>Generates a random coin from the top {itemsPerPage} coins on page {currentPage}.</p>
           {randomCoin && (
             <CoinBox 
               icon={randomCoin.image}

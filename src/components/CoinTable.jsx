@@ -1,9 +1,12 @@
 import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { ThemeContext } from '../context/ThemeContext'
 import { CurrencyContext } from '../context/CurrencyContext'
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io"
 
 function CoinTable({ data }) {
+  const navigate = useNavigate()
+
   const { isDarkMode } = useContext(ThemeContext)
   const { selectedCurrency } = useContext(CurrencyContext)
 
@@ -41,7 +44,7 @@ function CoinTable({ data }) {
             const priceChangeTextColor = isPricePositive ? 'text-[#00A83E]' : 'text-[#FF3A33]'
 
             return (
-              <tr key={key} className='border-b text-right'>
+              <tr key={key} className='border-b text-right' onClick={() => navigate(`/coins/${item.name.toLowerCase()}`)}>
                 <td className={`sticky left-0 z-10 text-center ${bgStyling}`}>{item.market_cap_rank}</td>
                 <td className={`flex items-center sticky left-16 z-10 my-1 ${bgStyling}`}>
                   <img src={item.image} className='h-6 w-6 mr-2'/>

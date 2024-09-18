@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios'
 import { ThemeContext } from '../context/ThemeContext'
@@ -96,6 +96,8 @@ function Index() {
             <FeaturedCoins
               componentName='Random Coin Generator'
               data={allCoins}
+              currentPage={currentPage}
+              itemsPerPage={itemsPerPage}
             />
             <h2 className={`mt-4 text-lg font-bold text-center ${textStyling}`}>Cryptocurrency Prices by Market Cap</h2>
             <SearchBar/>
