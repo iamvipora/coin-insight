@@ -56,7 +56,7 @@ function Index() {
       const res = await axios.request(options)
       setAllCoins(res.data)
     } catch (err) {
-      console.err
+      console.error(err)
     } finally {
       setLoading(false)
     }

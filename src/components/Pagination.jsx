@@ -33,7 +33,7 @@ function Pagination({ query, currentPage, itemsPerPage, setItemsPerPage }) {
   }
 
   return (
-    <div className='flex justify-between'>
+    <div className='grid grid-cols-3'>
       <div></div>
       <div className='flex justify-center items-center space-x-2 my-2 text-sm'>
         <button
@@ -54,21 +54,21 @@ function Pagination({ query, currentPage, itemsPerPage, setItemsPerPage }) {
           <IoMdArrowDropright className='h-5 w-5'/>
         </button>
       </div>
-      <div className='flex gap-2 text-xs items-center'>
+      <div className='flex gap-2 text-xs items-center place-content-end'>
         <span>Rows</span>
         <button
-          className='flex items-center place-content-center h-7 w-10 bg-[#4BCC00] rounded-lg text-white'
+          className='flex items-center place-content-center h-7 w-12 bg-[#4BCC00] rounded-lg text-white'
           onClick={() => setToggleItemsPerPageMenu(prev => !prev)}
         >
           {itemsPerPage}
           {toggleItemsPerPageMenuIcon}
         </button>
         {toggleItemsPerPageMenu && (
-          <ul className='absolute mt-8 ml-12 w-14 overflow-y-auto bg-[#4BCC00] rounded-lg text-white text-xs '>
+          <ul className='absolute mb-32 ml-12 w-12 overflow-y-auto bg-[#4BCC00] rounded-lg text-white text-xs'>
             {[25, 50, 100].map(value => (
               <li
                 key={value}
-                className='flex px-3 py-2 cursor-pointer text-xs'
+                className='flex px-3 py-2 cursor-pointer text-xs '
                 onClick={() => handleChangeItemsPerPage(value)}
               >
                 {value}
