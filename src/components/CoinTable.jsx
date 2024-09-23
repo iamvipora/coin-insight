@@ -44,7 +44,7 @@ function CoinTable({ data }) {
             const priceChangeTextColor = isPricePositive ? 'text-[#00A83E]' : 'text-[#FF3A33]'
 
             return (
-              <tr key={key} className='border-b text-right' onClick={() => navigate(`/coins/${item.name.toLowerCase()}`)}>
+              <tr key={key} className='border-b text-right' onClick={() => navigate(`/coins/${item.id}`)}>
                 <td className={`sticky left-0 z-10 text-center ${bgStyling}`}>{item.market_cap_rank}</td>
                 <td className={`flex items-center sticky left-16 z-10 my-1 ${bgStyling}`}>
                   <img src={item.image} className='h-6 w-6 mr-2'/>
@@ -54,7 +54,7 @@ function CoinTable({ data }) {
                   </div>
                 </td>
                 <td className='px-2 pl-[88px]'>{currencySymbol + priceFormatter.format(item.current_price)}</td>
-                <td className={`flex items-center ${priceChangeTextColor}`}>{priceChangeIcon}{'%' + Math.abs(percentageFormatter.format(item.price_change_percentage_24h))}</td>
+                <td className={`flex items-center ${priceChangeTextColor}`}>{priceChangeIcon}{Math.abs(percentageFormatter.format(item.price_change_percentage_24h)) + '%'}</td>
                 <td className='px-2'>{currencySymbol + priceFormatter.format(item.market_cap)}</td>
               </tr>
             )

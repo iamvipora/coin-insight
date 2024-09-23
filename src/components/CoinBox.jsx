@@ -1,9 +1,12 @@
 import { useContext } from "react"
+import { useNavigate } from 'react-router-dom'
 import { ThemeContext } from "../context/ThemeContext"
 import { CurrencyContext } from "../context/CurrencyContext"
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io"
 
-function CoinBox({ icon, name, price, dailyPriceChangePercentage }) {
+function CoinBox({ id, icon, name, price, dailyPriceChangePercentage }) {
+  const navigate = useNavigate()
+
   const { isDarkMode } = useContext(ThemeContext)
   const { selectedCurrency } = useContext(CurrencyContext)
 
@@ -26,11 +29,14 @@ function CoinBox({ icon, name, price, dailyPriceChangePercentage }) {
   })
 
   return (
-    <div className={`grid grid-cols-11 justify-between py-3 px-4 w-full rounded-lg items-center text-xs ${componentBg} ${componentText}`}>
+    <div 
+      className={`grid grid-cols-11 justify-between py-3 px-4 w-full rounded-lg items-center text-xs ${componentBg} ${componentText}`}
+      onClick={() => navigate(`/coins/${id}`)}
+    >
       <img src={icon} className='h-6 w-6 rounded-full'/>
       <span className='ml-1 col-span-4'>{name}</span>
       <span className='col-span-4 text-right'>{currencySymbol + priceFormatter.format(price)}</span>
-      <span className={`col-span-2 flex items-center ${priceChangeTextColor}`}>{priceChangeIcon}{'%' + Math.abs(percentageFormatter.format(dailyPriceChangePercentage))}</span>
+      <span className={`col-span-2 flex items-center ${priceChangeTextColor}`}>{priceChangeIcon}{Math.abs(percentageFormatter.format(dailyPriceChangePercentage)) + '%'}</span>
     </div>
   )
 }

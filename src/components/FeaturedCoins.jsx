@@ -25,6 +25,7 @@ function FeaturedCoins({ componentName, data, currentPage, itemsPerPage }) {
   const renderTopCoins = data.filter(item => !stableCoins.includes(item.name)).slice(0, 3).map((item, key) => {
     return (
       <CoinBox 
+        id={item.id}
         key={key}
         icon={item.image}
         name={item.name}
@@ -51,7 +52,8 @@ function FeaturedCoins({ componentName, data, currentPage, itemsPerPage }) {
         <div className='flex flex-col gap-2 place-items-end'>
           <p className='text-xs text-justify'>Generates a random coin from the top {itemsPerPage} coins on page {currentPage}.</p>
           {randomCoin && (
-            <CoinBox 
+            <CoinBox
+              id={randomCoin.id}
               icon={randomCoin.image}
               name={randomCoin.name}
               price={randomCoin.current_price}
