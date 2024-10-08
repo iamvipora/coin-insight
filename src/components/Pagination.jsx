@@ -10,7 +10,7 @@ function Pagination({ query, currentPage, itemsPerPage, setItemsPerPage }) {
 
   const [toggleItemsPerPageMenu, setToggleItemsPerPageMenu] = useState(false)
 
-  const toggleItemsPerPageMenuIcon = toggleItemsPerPageMenu ? <IoMdArrowDropdown/> : <IoMdArrowDropup/>
+  const toggleItemsPerPageMenuIcon = toggleItemsPerPageMenu ? <IoMdArrowDropup/> : <IoMdArrowDropdown/>
   const textStyling = isDarkMode && 'text-white'
 
   const handlePrevPage = () => {

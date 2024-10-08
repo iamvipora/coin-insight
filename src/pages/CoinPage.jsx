@@ -14,6 +14,9 @@ function CoinPage() {
   const { id } = useParams()
   const [coinData, setCoinData] = useState()
   const [loading, setLoading] = useState(true)
+  const [coinCalculatorValue, setCoinCalculatorValue] = useState('')
+  const [currencyCalculatorValue, setCurrencyCalculatorValue] = useState('')
+  
   
   const currencySymbol = selectedCurrency == 'USD' ? '$' : '₱' 
   const currencyName = selectedCurrency == 'USD' ? 'US Dollars' : 'Philippine Peso' 
@@ -40,11 +43,37 @@ function CoinPage() {
     try {
       const res = await axios.request(options)
       setCoinData(res.data)
+      setCoinCalculatorValue()
+      setCurrencyCalculatorValue()
     } catch (err) {
       console.error(err)
     } finally {
       setLoading(false)
     }
+  }
+
+  const handleCoinValueChange = (e) => {
+    const inputValue = e.target.value
+    setCoinCalculatorValue(inputValue)
+
+    if (inputValue !== '') {
+      const calculatedValue = inputValue * coinData.market_data.current_price[selectedCurrency.toLowerCase()]
+      setCurrencyCalculatorValue(calculatedValue.toFixed(2))
+    } else {
+      setCurrencyCalculatorValue('')
+    }
+  }
+
+  const handleCurrencyValueChange = (e) => {
+    const inputValue = e.target.value
+    setCurrencyCalculatorValue(inputValue)
+
+    if (inputValue !== '') {
+      const calculatedValue = inputValue / coinData.market_data.current_price[selectedCurrency.toLowerCase()]
+      setCoinCalculatorValue(calculatedValue.toFixed(6))
+    } else {
+      setCoinCalculatorValue('')
+    } 
   }
 
   useEffect(() => {
@@ -71,24 +100,34 @@ function CoinPage() {
               </div> 
             </div>
             <div className='flex items-center'>
-              <h1 className='text-3xl mr-1'>{currencySymbol + priceFormatter.format(coinData.market_data.current_price[selectedCurrency.toLowerCase()])}</h1>
+              <h1 className='text-3xl mr-1 font-medium'>{currencySymbol + priceFormatter.format(coinData.market_data.current_price[selectedCurrency.toLowerCase()])}</h1>
               <span className={`flex items-center py-4 ${coinData.market_data.price_change_percentage_24h > 0 ? 'text-[#00A83E]' : 'text-[#FF3A33]'}`}>
                 {coinData.market_data.price_change_percentage_24h > 0 ? <IoMdArrowDropup className='h-5 w-5'/> : <IoMdArrowDropdown className='h-5 w-5'/>}
                 {Math.abs(percentageFormatter.format(coinData.market_data.price_change_percentage_24h)) + '%'}
               </span>
             </div>
             <div>
-              <h2 className='text-lg'>Covert {coinData.name} to {currencyName} ({coinData.symbol.toUpperCase()} to {selectedCurrency})</h2>
+              <h2 className='text-lg font-medium'>Convert {coinData.name} to {currencyName} ({coinData.symbol.toUpperCase()} to {selectedCurrency})</h2>
               <p className='text-sm text-[#64748B]'>The price of converting 1 {coinData.name} ({coinData.symbol.toUpperCase()}) to {selectedCurrency} is {priceFormatter.format(coinData.market_data.current_price[selectedCurrency.toLowerCase()])} today.</p>
               <div className={`flex flex-col gap-4 px-6 py-4 my-2 rounded-lg ${isDarkMode ? 'bg-[#384A61]' : 'bg-[#F1F5F9]'}`}>
-                <input 
-                  type='number'
-                  className={`outline-none ring-0 h-10 p-2 rounded-lg border ${isDarkMode && 'bg-[#0D1217] text-white'} ${isDarkMode ? 'border-[#384A61]' : 'border-[#EFF2F5]'}`}
-                 /> 
-                <input 
-                  type='number'
-                  className={`outline-none ring-0 h-10 p-2 rounded-lg border ${isDarkMode && 'bg-[#0D1217] text-white'} ${isDarkMode ? 'border-[#384A61]' : 'border-[#EFF2F5]'}`}
-                 />
+                <div className={`flex items-center h-10 w-full px-2 rounded-lg border text-xs ${isDarkMode ? 'bg-[#0D1217]' : 'bg-white'} ${isDarkMode ? 'border-[#384A61]' : 'border-[#EFF2F5]'}`}>
+                  <input
+                    className='outline-none w-full bg-inherit'
+                    type='number' 
+                    value={coinCalculatorValue}
+                    onChange={handleCoinValueChange}
+                  />
+                  <span className={` pl-2 ${isDarkMode ? 'text-[#9EB0C7]' : 'text-[#64748B]'}`}>{coinData.symbol.toUpperCase()}</span>
+                </div>
+                <div className={`flex items-center h-10 w-full px-2 rounded-lg border text-xs ${isDarkMode ? 'bg-[#0D1217]' : 'bg-white'} ${isDarkMode ? 'border-[#384A61]' : 'border-[#EFF2F5]'}`}>
+                  <input
+                    className='outline-none w-full bg-inherit'
+                    type='number' 
+                    value={currencyCalculatorValue}
+                    onChange={handleCurrencyValueChange}
+                  />
+                  <span className={` pl-2 ${isDarkMode ? 'text-[#9EB0C7]' : 'text-[#64748B]'}`}>{selectedCurrency}</span>
+                </div>
                  <p className='text-sm'>1 ({coinData.symbol.toUpperCase()}) = {currencySymbol + priceFormatter.format(coinData.market_data.current_price[selectedCurrency.toLowerCase()])}</p>
               </div>
             </div>
