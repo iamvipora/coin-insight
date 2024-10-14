@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom' 
 import axios from 'axios'
 import Header from '../components/Header'
+import TradingViewChart from '../components/TradingViewChart'
 import { ThemeContext } from '../context/ThemeContext'
 import { CurrencyContext } from '../context/CurrencyContext'
 import { FadeLoader } from 'react-spinners'
@@ -129,6 +130,13 @@ function CoinPage() {
                   <span className={` pl-2 ${isDarkMode ? 'text-[#9EB0C7]' : 'text-[#64748B]'}`}>{selectedCurrency}</span>
                 </div>
                  <p className='text-sm'>1 ({coinData.symbol.toUpperCase()}) = {currencySymbol + priceFormatter.format(coinData.market_data.current_price[selectedCurrency.toLowerCase()])}</p>
+              </div>
+              <div className='h-96'>
+                <h2 className='text-lg font-medium'>{coinData.symbol.toUpperCase()} to {selectedCurrency} Chart</h2>
+                <TradingViewChart
+                  coinSymbol={coinData.symbol.toUpperCase()}
+                  selectedCurrency={selectedCurrency}
+                />
               </div>
             </div>
           </div>    
