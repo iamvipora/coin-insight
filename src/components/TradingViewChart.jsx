@@ -5,7 +5,7 @@ function TradingViewChart({ coinSymbol, selectedCurrency}) {
 
   useEffect(() => {
     if (container.current) {
-      container.current.innerHTML = '';
+      container.current.innerHTML = ''
     }
     const coin = coinSymbol + selectedCurrency
 
@@ -36,10 +36,10 @@ function TradingViewChart({ coinSymbol, selectedCurrency}) {
   }, [])
 
   return (
-    <div className="tradingview-widget-container" ref={container} style={{ height: '100%', width: '100%' }}>
-      <div className="tradingview-widget-container__widget" style={{ height: 'calc(100% - 32px)', width: '100%' }}></div>
+    <div className='my-2' ref={container} style={{ height: '100%', width: '100%' }}>
+      <div style={{ height: 'calc(100% - 32px)', width: '100%' }}></div>
     </div>
   )
 }
 
-export default memo(TradingViewChart);
+export default memo(TradingViewChart)

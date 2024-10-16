@@ -15,10 +15,12 @@ function CoinPage() {
   const { id } = useParams()
   const [coinData, setCoinData] = useState()
   const [loading, setLoading] = useState(true)
+  const [toggleStatisticsDropDown, setToggleStatisticsDropDown] = useState(false)
   const [coinCalculatorValue, setCoinCalculatorValue] = useState('')
   const [currencyCalculatorValue, setCurrencyCalculatorValue] = useState('')
   
-  
+  const toggleStatisticsDropDownIcon = toggleStatisticsDropDown ? <IoMdArrowDropdown/> : <IoMdArrowDropup/>
+
   const currencySymbol = selectedCurrency == 'USD' ? '$' : '₱' 
   const currencyName = selectedCurrency == 'USD' ? 'US Dollars' : 'Philippine Peso' 
 
@@ -43,6 +45,8 @@ function CoinPage() {
     }
     try {
       const res = await axios.request(options)
+      console.log(res.data)
+      console.log(selectedCurrency.toLowerCase())
       setCoinData(res.data)
       setCoinCalculatorValue()
       setCurrencyCalculatorValue()
@@ -137,7 +141,24 @@ function CoinPage() {
                   coinSymbol={coinData.symbol.toUpperCase()}
                   selectedCurrency={selectedCurrency}
                 />
-              </div>
+                <div className='flex justify-between'>
+                  <h2 className='text-lg font-medium'>{coinData.name} Statistics</h2>
+                  <button
+                    className=''
+                    onClick={() => setToggleStatisticsDropDown(prev => !prev)}
+                  >
+                    {toggleStatisticsDropDownIcon}
+                  </button>
+                </div>
+                {toggleStatisticsDropDown && (
+                  <table className='w-full'>
+                    <tr className='flex justify-between w-full'>
+                      <td>Market Cap</td>
+                      <td>{currencySymbol + priceFormatter.format(coinData.market_data.market_cap[selectedCurrency.toLowerCase()])}</td>
+                    </tr>
+                  </table>
+                )}
+              </div>  
             </div>
           </div>    
         }   
