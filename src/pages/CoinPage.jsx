@@ -15,7 +15,7 @@ function CoinPage() {
   const { id } = useParams()
   const [coinData, setCoinData] = useState()
   const [loading, setLoading] = useState(true)
-  const [toggleStatisticsDropDown, setToggleStatisticsDropDown] = useState(false)
+  const [toggleStatisticsDropDown, setToggleStatisticsDropDown] = useState(true)
   const [coinCalculatorValue, setCoinCalculatorValue] = useState('')
   const [currencyCalculatorValue, setCurrencyCalculatorValue] = useState('')
   
@@ -46,7 +46,6 @@ function CoinPage() {
     try {
       const res = await axios.request(options)
       console.log(res.data)
-      console.log(selectedCurrency.toLowerCase())
       setCoinData(res.data)
       setCoinCalculatorValue()
       setCurrencyCalculatorValue()
@@ -141,23 +140,47 @@ function CoinPage() {
                   coinSymbol={coinData.symbol.toUpperCase()}
                   selectedCurrency={selectedCurrency}
                 />
-                <div className='flex justify-between'>
-                  <h2 className='text-lg font-medium'>{coinData.name} Statistics</h2>
-                  <button
-                    className=''
-                    onClick={() => setToggleStatisticsDropDown(prev => !prev)}
-                  >
-                    {toggleStatisticsDropDownIcon}
-                  </button>
-                </div>
-                {toggleStatisticsDropDown && (
+                <div className='flex flex-col my-2'>
+                  <div className='flex justify-between border-b'>
+                    <h2 className='text-lg font-medium'>{coinData.name} Statistics</h2>
+                    <button
+                      className=''
+                      onClick={() => setToggleStatisticsDropDown(prev => !prev)}
+                    >
+                      {toggleStatisticsDropDownIcon}
+                    </button>
+                  </div>
+                  {toggleStatisticsDropDown && (
                   <table className='w-full'>
-                    <tr className='flex justify-between w-full'>
-                      <td>Market Cap</td>
-                      <td>{currencySymbol + priceFormatter.format(coinData.market_data.market_cap[selectedCurrency.toLowerCase()])}</td>
-                    </tr>
+                    <tbody className='w-full'>
+                      <tr className='flex justify-between w-full border-b py-2 text-sm'>
+                        <td className='text-[#64748B]'>Market Cap</td>
+                        <td className={`textStyling`}>{currencySymbol + priceFormatter.format(coinData.market_data.market_cap[selectedCurrency.toLowerCase()])}</td>
+                      </tr>
+                      <tr className='flex justify-between w-full border-b py-2 text-sm'>
+                        <td className='text-[#64748B]'>Fully Diluted Valuation</td>
+                        <td className={`textStyling`}>{currencySymbol + priceFormatter.format(coinData.market_data.fully_diluted_valuation[selectedCurrency.toLowerCase()])}</td>
+                      </tr>
+                      <tr className='flex justify-between w-full border-b py-2 text-sm'>
+                        <td className='text-[#64748B]'>Total Volume</td>
+                        <td className={`textStyling`}>{currencySymbol + priceFormatter.format(coinData.market_data.total_volume[selectedCurrency.toLowerCase()])}</td>
+                      </tr>
+                      <tr className='flex justify-between w-full border-b py-2 text-sm'>
+                        <td className='text-[#64748B]'>Circulating Supply</td>
+                        <td className={`textStyling`}>{priceFormatter.format(coinData.market_data.circulating_supply)}</td>
+                      </tr>
+                      <tr className='flex justify-between w-full border-b py-2 text-sm'>
+                        <td className='text-[#64748B]'>Total Supply</td>
+                        <td className={`textStyling`}>{priceFormatter.format(coinData.market_data.total_supply)}</td>
+                      </tr>
+                      <tr className='flex justify-between w-full border-b py-2 text-sm'>
+                        <td className='text-[#64748B]'>Max Supply</td>
+                        <td className={`textStyling`}>{priceFormatter.format(coinData.market_data.max_supply)}</td>
+                      </tr>
+                    </tbody>
                   </table>
                 )}
+                </div>
               </div>  
             </div>
           </div>    
