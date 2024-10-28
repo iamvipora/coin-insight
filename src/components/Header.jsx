@@ -31,7 +31,7 @@ function Header() {
   return (
     <header className='flex justify-between px-4 my-2'>
       <Link to='/'>
-        <h1 className={`font-bold text-xl ${textColor}`}>Coin Insight</h1>
+        <h1 className={`font-bold text-2xl ${textColor}`}>Coin Insight</h1>
       </Link>
       <div className='flex gap-2'>
         <button 
@@ -44,11 +44,11 @@ function Header() {
           className='flex items-center place-content-center h-7 w-14 bg-[#4BCC00] rounded-lg text-white'
           onClick={() => setToggleCurrencyMenu(prev => !prev)}
         >
-          <span className='text-xs'>{selectedCurrency}</span>
+          <span className='text-sm'>{selectedCurrency}</span>
           {toggleCurrencyMenuIcon}
         </button>
         {toggleCurrencyMenu && (
-          <ul className='absolute mt-8 ml-12 w-14 overflow-y-auto bg-[#4BCC00] rounded-lg text-white text-xs '>
+          <ul className='absolute mt-8 ml-12 w-14 overflow-y-auto bg-[#4BCC00] rounded-lg text-white text-sm '>
             {currencies.map((currency) => (
               <li
                 key={currency}

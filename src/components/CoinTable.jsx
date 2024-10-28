@@ -27,9 +27,9 @@ function CoinTable({ data }) {
 
   return (
     <div className='overflow-x-auto'>
-      <table className={`table-auto border-collapse min-w-full text-xs ${textStyling}`}>
+      <table className={`table-auto border-collapse min-w-full text-sm ${textStyling}`}>
         <thead>
-          <tr className='h-6 border-y font-bold text-nowrap text-right'>
+          <tr className='h-10 border-y font-bold text-nowrap text-right text-base'>
             <th className={`sticky left-0 z-10 px-2 text-left ${bgStyling}`}>Ranking</th>
             <th className={`sticky left-16 z-10 px-9 text-left ${bgStyling}`}>Coin</th>
             <th className='px-2'>Price</th>
@@ -53,8 +53,8 @@ function CoinTable({ data }) {
                     <span className='text-[#64748B]'>{item.symbol.toUpperCase()}</span>
                   </div>
                 </td>
-                <td className='px-2 pl-[88px]'>{currencySymbol + priceFormatter.format(item.current_price)}</td>
-                <td className={`flex items-center ${priceChangeTextColor}`}>{priceChangeIcon}{Math.abs(percentageFormatter.format(item.price_change_percentage_24h)) + '%'}</td>
+                <td className='px-2 '>{currencySymbol + priceFormatter.format(item.current_price)}</td>
+                <td className={`flex place-content-end ${priceChangeTextColor}`}>{priceChangeIcon}{Math.abs(percentageFormatter.format(item.price_change_percentage_24h)) + '%'}</td>
                 <td className='px-2'>{currencySymbol + priceFormatter.format(item.market_cap)}</td>
               </tr>
             )

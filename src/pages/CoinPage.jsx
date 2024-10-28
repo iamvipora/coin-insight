@@ -45,7 +45,6 @@ function CoinPage() {
     }
     try {
       const res = await axios.request(options)
-      console.log(res.data)
       setCoinData(res.data)
       setCoinCalculatorValue()
       setCurrencyCalculatorValue()
@@ -85,7 +84,7 @@ function CoinPage() {
   }, [selectedCurrency])
 
   return (
-    <div className='font-outfit tracking-wider'>
+    <div className='font-outfit tracking-wider md:px-6 lg:px-8 xl:px-16 2xl:px-96'>
       <Header/>
       <div className='flex flex-col px-4'>
         { loading ? 
@@ -97,9 +96,9 @@ function CoinPage() {
             <div className='flex items-center'>
               <img src={coinData.image.thumb} className='mr-1'/>
               <h1>{coinData.name}
-                <span className='ml-1 text-[#64748B] text-xs'>{coinData.symbol.toUpperCase() + ' / ' + selectedCurrency}</span>
+                <span className='ml-1 text-[#64748B] text-sm'>{coinData.symbol.toUpperCase() + ' / ' + selectedCurrency}</span>
               </h1>
-              <div className={`flex place-content-center rounded-lg ml-1 h-4 w-6 text-[#64748B] text-xs ${isDarkMode ? 'bg-[#1B232D]' : 'bg-[#F1F5F9]'}`}>
+              <div className={`flex place-content-center rounded-lg ml-1 h-4 w-6 text-[#64748B] text-sm ${isDarkMode ? 'bg-[#1B232D]' : 'bg-[#F1F5F9]'}`}>
                 {'#' + coinData.market_cap_rank}
               </div> 
             </div>
@@ -111,38 +110,39 @@ function CoinPage() {
               </span>
             </div>
             <div>
-              <h2 className='text-lg font-medium'>Convert {coinData.name} to {currencyName} ({coinData.symbol.toUpperCase()} to {selectedCurrency})</h2>
-              <p className='text-sm text-[#64748B]'>The price of converting 1 {coinData.name} ({coinData.symbol.toUpperCase()}) to {selectedCurrency} is {priceFormatter.format(coinData.market_data.current_price[selectedCurrency.toLowerCase()])} today.</p>
+              <h2 className='text-xl font-medium'>Convert {coinData.name} to {currencyName} ({coinData.symbol.toUpperCase()} to {selectedCurrency})</h2>
+              <p className='text-base text-[#64748B]'>The price of converting 1 {coinData.name} ({coinData.symbol.toUpperCase()}) to {selectedCurrency} is {priceFormatter.format(coinData.market_data.current_price[selectedCurrency.toLowerCase()])} today.</p>
               <div className={`flex flex-col gap-4 px-6 py-4 my-2 rounded-lg ${isDarkMode ? 'bg-[#384A61]' : 'bg-[#F1F5F9]'}`}>
-                <div className={`flex items-center h-10 w-full px-2 rounded-lg border text-xs ${isDarkMode ? 'bg-[#0D1217]' : 'bg-white'} ${isDarkMode ? 'border-[#384A61]' : 'border-[#EFF2F5]'}`}>
+                <div className={`flex items-center h-10 w-full px-2 rounded-lg border text-sm ${isDarkMode ? 'bg-[#0D1217]' : 'bg-white'} ${isDarkMode ? 'border-[#384A61]' : 'border-[#EFF2F5]'}`}>
                   <input
                     className='outline-none w-full bg-inherit'
-                    type='number' 
+                    type='text' 
                     value={coinCalculatorValue}
                     onChange={handleCoinValueChange}
                   />
                   <span className={` pl-2 ${isDarkMode ? 'text-[#9EB0C7]' : 'text-[#64748B]'}`}>{coinData.symbol.toUpperCase()}</span>
                 </div>
-                <div className={`flex items-center h-10 w-full px-2 rounded-lg border text-xs ${isDarkMode ? 'bg-[#0D1217]' : 'bg-white'} ${isDarkMode ? 'border-[#384A61]' : 'border-[#EFF2F5]'}`}>
+                <div className={`flex items-center h-10 w-full px-2 rounded-lg border text-sm ${isDarkMode ? 'bg-[#0D1217]' : 'bg-white'} ${isDarkMode ? 'border-[#384A61]' : 'border-[#EFF2F5]'}`}>
                   <input
                     className='outline-none w-full bg-inherit'
-                    type='number' 
+                    type='text' 
                     value={currencyCalculatorValue}
                     onChange={handleCurrencyValueChange}
                   />
                   <span className={` pl-2 ${isDarkMode ? 'text-[#9EB0C7]' : 'text-[#64748B]'}`}>{selectedCurrency}</span>
                 </div>
-                 <p className='text-sm'>1 ({coinData.symbol.toUpperCase()}) = {currencySymbol + priceFormatter.format(coinData.market_data.current_price[selectedCurrency.toLowerCase()])}</p>
+                 <p className='text-base'>1 ({coinData.symbol.toUpperCase()}) = {currencySymbol + priceFormatter.format(coinData.market_data.current_price[selectedCurrency.toLowerCase()])}</p>
               </div>
               <div className='h-96'>
-                <h2 className='text-lg font-medium'>{coinData.symbol.toUpperCase()} to {selectedCurrency} Chart</h2>
+                <h2 className='text-xl font-medium'>{coinData.symbol.toUpperCase()} to {selectedCurrency} Chart</h2>
                 <TradingViewChart
                   coinSymbol={coinData.symbol.toUpperCase()}
                   selectedCurrency={selectedCurrency}
                 />
-                <div className='flex flex-col my-2'>
+              </div>
+              <div className='flex flex-col my-2'>
                   <div className='flex justify-between border-b'>
-                    <h2 className='text-lg font-medium'>{coinData.name} Statistics</h2>
+                    <h2 className='text-xl font-medium'>{coinData.name} Statistics</h2>
                     <button
                       className=''
                       onClick={() => setToggleStatisticsDropDown(prev => !prev)}
@@ -153,27 +153,27 @@ function CoinPage() {
                   {toggleStatisticsDropDown && (
                   <table className='w-full'>
                     <tbody className='w-full'>
-                      <tr className='flex justify-between w-full border-b py-2 text-sm'>
+                      <tr className='flex justify-between w-full border-b py-2 text-base'>
                         <td className='text-[#64748B]'>Market Cap</td>
                         <td className={`textStyling`}>{currencySymbol + priceFormatter.format(coinData.market_data.market_cap[selectedCurrency.toLowerCase()])}</td>
                       </tr>
-                      <tr className='flex justify-between w-full border-b py-2 text-sm'>
+                      <tr className='flex justify-between w-full border-b py-2 text-base'>
                         <td className='text-[#64748B]'>Fully Diluted Valuation</td>
                         <td className={`textStyling`}>{currencySymbol + priceFormatter.format(coinData.market_data.fully_diluted_valuation[selectedCurrency.toLowerCase()])}</td>
                       </tr>
-                      <tr className='flex justify-between w-full border-b py-2 text-sm'>
+                      <tr className='flex justify-between w-full border-b py-2 text-base'>
                         <td className='text-[#64748B]'>Total Volume</td>
                         <td className={`textStyling`}>{currencySymbol + priceFormatter.format(coinData.market_data.total_volume[selectedCurrency.toLowerCase()])}</td>
                       </tr>
-                      <tr className='flex justify-between w-full border-b py-2 text-sm'>
+                      <tr className='flex justify-between w-full border-b py-2 text-base'>
                         <td className='text-[#64748B]'>Circulating Supply</td>
                         <td className={`textStyling`}>{priceFormatter.format(coinData.market_data.circulating_supply)}</td>
                       </tr>
-                      <tr className='flex justify-between w-full border-b py-2 text-sm'>
+                      <tr className='flex justify-between w-full border-b py-2 text-base'>
                         <td className='text-[#64748B]'>Total Supply</td>
                         <td className={`textStyling`}>{priceFormatter.format(coinData.market_data.total_supply)}</td>
                       </tr>
-                      <tr className='flex justify-between w-full border-b py-2 text-sm'>
+                      <tr className='flex justify-between w-full border-b py-2 text-base'>
                         <td className='text-[#64748B]'>Max Supply</td>
                         <td className={`textStyling`}>{priceFormatter.format(coinData.market_data.max_supply)}</td>
                       </tr>
@@ -181,7 +181,6 @@ function CoinPage() {
                   </table>
                 )}
                 </div>
-              </div>  
             </div>
           </div>    
         }   

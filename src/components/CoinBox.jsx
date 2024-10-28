@@ -30,7 +30,7 @@ function CoinBox({ id, icon, name, price, dailyPriceChangePercentage }) {
 
   return (
     <div 
-      className={`grid grid-cols-11 justify-between py-3 px-4 w-full rounded-lg items-center text-xs ${componentBg} ${componentText}`}
+      className={`grid grid-cols-11 justify-between py-3 px-4 w-full rounded-lg items-center text-sm ${componentBg} ${componentText}`}
       onClick={() => navigate(`/coins/${id}`)}
     >
       <img src={icon} className='h-6 w-6 rounded-full'/>

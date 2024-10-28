@@ -12,7 +12,7 @@ function SearchBar() {
     <div className={`flex items-center gap-2 h-8 w-full px-2 rounded-lg ${bgStyling}`}>
       <FaSearch className={`h-3 w-3 ${textStyling}`}/>
       <input
-        className={`w-full bg-inherit outline-none text-xs ${textStyling}`}
+        className={`w-full bg-inherit outline-none ${textStyling}`}
         type='text'
         placeholder='Search'
       />

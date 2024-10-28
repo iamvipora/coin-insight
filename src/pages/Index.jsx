@@ -74,7 +74,7 @@ function Index() {
   }, [currentPage, itemsPerPage, selectedCurrency])
 
   return (
-    <div className='font-outfit tracking-wider'>
+    <div className='font-outfit tracking-wider md:px-6 lg:px-8 xl:px-16 2xl:px-96'>
       <Header/>
       <div className='flex flex-col px-4'>
         {loading ? 
@@ -83,24 +83,28 @@ function Index() {
           </div>
           :
           <div className='flex flex-col gap-2'>
-            <MarketStatistics
-              data={defiMarketCapData}
-            />
-            <MarketStatistics
-              data={tradingVolumeData}
-            />
-            <FeaturedCoins
-              componentName='Top 3 Coins'
-              data={allCoins}
-            />
-            <FeaturedCoins
-              componentName='Random Coin Generator'
-              data={allCoins}
-              currentPage={currentPage}
-              itemsPerPage={itemsPerPage}
-            />
-            <h2 className={`mt-4 text-lg font-bold text-center ${textStyling}`}>Cryptocurrency Prices by Market Cap</h2>
-            <SearchBar/>
+            <div className='flex flex-col gap-2 xl:grid xl:grid-cols-3'>
+              <div className='flex flex-col justify-between gap-2'>
+                <MarketStatistics
+                  data={defiMarketCapData}
+                />
+                <MarketStatistics
+                  data={tradingVolumeData}
+                />
+              </div> 
+              <FeaturedCoins
+                componentName='Top 3 Coins'
+                data={allCoins}
+              />
+              <FeaturedCoins
+                componentName='Random Coin Generator'
+                data={allCoins}
+                currentPage={currentPage}
+                itemsPerPage={itemsPerPage}
+              />
+            </div>  
+            <h2 className={`mt-2 text-2xl font-bold text-center ${textStyling}`}>Cryptocurrency Prices by Market Cap</h2>
+            <SearchBar />
             <CoinTable
               data={allCoins}
             />

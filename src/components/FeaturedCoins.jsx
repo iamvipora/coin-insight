@@ -43,14 +43,14 @@ function FeaturedCoins({ componentName, data, currentPage, itemsPerPage }) {
   
   return (
     <div className={`flex flex-col p-2 w-full rounded-lg ${bgStyling} ${textStyling}`}>
-      <h2 className='flex items-center gap-1 text-lg font-bold pb-2'>{componentIcon}{componentName}</h2>
+      <h2 className='flex items-center gap-1 text-xl font-bold pb-2'>{componentIcon}{componentName}</h2>
       {isTop3Coins ?
         <div className='flex flex-col gap-2'>
           {renderTopCoins}
         </div>
         :
         <div className='flex flex-col gap-2 place-items-end'>
-          <p className='text-xs text-justify'>Generates a random coin from the top {itemsPerPage} coins on page {currentPage}.</p>
+          <p className='text-sm text-justify'>Generates a random coin from the top {itemsPerPage} coins on page {currentPage}.</p>
           {randomCoin && (
             <CoinBox
               id={randomCoin.id}
@@ -64,7 +64,7 @@ function FeaturedCoins({ componentName, data, currentPage, itemsPerPage }) {
             className='flex items-center h-7 w-20 bg-[#4BCC00] rounded-lg'
             onClick={() => generateRandomCoin()}  
           >
-            <span className='text-xs text-white w-full'>Generate</span>
+            <span className='text-sm text-white w-full'>Generate</span>
           </button>
         </div>
       } 
