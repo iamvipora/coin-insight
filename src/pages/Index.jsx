@@ -6,7 +6,6 @@ import { CurrencyContext } from '../context/CurrencyContext'
 import Header from '../components/Header'
 import MarketStatistics from '../components/MarketStatistics'
 import FeaturedCoins from '../components/FeaturedCoins'
-import SearchBar from '../components/SearchBar'
 import CoinTable from '../components/CoinTable'
 import Pagination from '../components/Pagination'
 import { FadeLoader } from 'react-spinners'
@@ -104,7 +103,6 @@ function Index() {
               />
             </div>  
             <h2 className={`mt-2 text-2xl font-bold text-center ${textStyling}`}>Cryptocurrency Prices by Market Cap</h2>
-            <SearchBar />
             <CoinTable
               data={allCoins}
             />
