@@ -1,2 +1,2 @@
 # Coin Insight
-A cryptocurrency website that shows the different coins in crypto. It includes details such as price, marketcap, trading volume, charts, and more. This site also includes a discussion portion at the bottom of every coin page so you know whether people are bullish or bearish on a coin.
+Coin Insight is a website that tracks cryptocurrency and its digital market. It utilizes the the following free APIs: CoinGecko for data such as the list of coins and their statistics, and TradingView for the charts.
